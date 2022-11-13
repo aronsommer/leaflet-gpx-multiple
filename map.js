@@ -108,7 +108,7 @@ function loadAllGPX(array) {
             let distancetext = '';
             if (layer.get_distance()) { distancetext = Math.round(layer.get_distance() / 1000) + " km"; }
             // let activityinfo = nametext+"<br><hr>"+typetext+" "+distancetext+"<br><hr>Click to view on Strava";
-            let activityinfo = nametext + "<br><hr>" + distancetext;
+            let activityinfo = nametext + "<br><hr>" + distancetext + "<br><hr>Click to download GPX file";
             // popup
             var popup = L.popup()
                 .setLatLng(e.latlng)
@@ -127,6 +127,8 @@ function loadAllGPX(array) {
             // this.bringToFront();
             // var url = "https://www.strava.com/activities/" + data.id
             // window.open(url);
+            // Download file on click
+            window.open(url, '_self');
         }).addTo(map);
     });
 }
