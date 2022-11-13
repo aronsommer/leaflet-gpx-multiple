@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        // Setting up the map
+        var map = L.map('map').setView([51.505, -0.09], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Displaying a GPX track on it is as easy as:
+        /* var url = './gpx-files/Badenweiler_Blauen_M_llheim.gpx'; // URL to your GPX file
+        new L.GPX(url, {
+            async: true,
+            marker_options: {
+                startIconUrl: 'images/pin-icon-start.png',
+                endIconUrl: 'images/pin-icon-end.png',
+                shadowUrl: 'images/pin-shadow.png'
+            }
+        }).on('loaded', function (e) {
+            map.fitBounds(e.target.getBounds());
+        }).addTo(map); */
+
+        // When DOM is ready for JavaScript
+        $(document).ready(function () {
+            // Store each line of text file into an array
+            $.get('list-of-gpx-files.txt', function (response) {
+                a = response.split("\n");
+                // console.log(a[0], a[1], a[2]);
+                loadAllGPX(a);
+            })
+        })
+
+        // Load all GPX files
+        function loadAllGPX(array) {
+            // For every object in array
+            array.forEach(element => {
+                console.log(element);
+
+                var url = './gpx-files/' + element; // URL to your GPX file
+                new L.GPX(url, {
+                    async: true,
+                    marker_options: {
+                        // startIconUrl: 'images/pin-icon-start.png',
+                        // endIconUrl: 'images/pin-icon-end.png',
+                        // shadowUrl: 'images/pin-shadow.png'
+                        startIconUrl: null,
+                        endIconUrl: null,
+                        shadowUrl: null
+                    }
+                }).on('loaded', function (e) {
+                    map.fitBounds(e.target.getBounds());
+                }).addTo(map);
+            });
+        }
+    </script>
+</body>
+
+</html>
