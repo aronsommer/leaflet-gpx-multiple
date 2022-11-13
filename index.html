@@ -79,7 +79,9 @@
                         shadowUrl: null
                     }
                 }).on('loaded', function (e) {
-                    map.fitBounds(e.target.getBounds());
+                    var gpx = e.target;
+                    map.fitBounds(gpx.getBounds());
+                    console.log(gpx.get_name());
                 }).addTo(map);
             });
         }
