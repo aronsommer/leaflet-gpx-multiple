@@ -1,0 +1,1 @@
+ls /Users/aronsommer/Downloads/gpx-files > /Users/aronsommer/Desktop/list-of-gpx-files.txt
