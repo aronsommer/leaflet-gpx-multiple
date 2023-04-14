@@ -106,7 +106,8 @@ function loadAllGPX(array) {
             if (layer.get_name()) { nametext = layer.get_name(); }
             // let typetext = '';
             let distancetext = '';
-            if (layer.get_distance()) { distancetext = Math.round(layer.get_distance() / 1000) + " km"; }
+            // if (layer.get_distance()) { distancetext = Math.round(layer.get_distance() / 1000) + " km"; }
+            if (layer.get_distance()) { distancetext = Math.floor(layer.get_distance().toFixed(2) / 1000 * 100) / 100 + " km"; }
             // let activityinfo = nametext+"<br><hr>"+typetext+" "+distancetext+"<br><hr>Click to view on Strava";
             let activityinfo = nametext + "<br><hr>" + distancetext + "<br><hr>Click to download GPX file";
             // popup
